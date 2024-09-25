@@ -147,8 +147,11 @@ class FavoritesPage extends StatelessWidget {
         ),
         for (var pair in appState.favorites)
           ListTile(
-            leading: Icon(Icons.favorite),
+            leading: Icon(Icons.delete_outline),
             title: Text(pair.asLowerCase),
+            onTap: () {
+              appState.removerFavorito(pair);
+            },
           ),
       ],
     );
@@ -203,5 +206,12 @@ class MyAppState extends ChangeNotifier {
       favorites.add(current);
     }
     notifyListeners();
+  }
+
+  void removerFavorito(var pair) {
+    if (favorites.contains(pair)) {
+      favorites.remove(pair);
+      notifyListeners();
+    }
   }
 }
